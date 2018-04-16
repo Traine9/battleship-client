@@ -71,7 +71,7 @@ public class BattleShipWarrior implements Runnable {
 			JSONParser parser = new JSONParser();
 			JSONObject json = (JSONObject) parser.parse(res);
 			String status = (String) json.get("status");
-			System.out.println("============Output:============");
+//			System.out.println("============Output:============");
 //			System.out.println(res);
 //			System.out.println(status);
 		} catch (ClientProtocolException e) {
