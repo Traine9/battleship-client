@@ -46,7 +46,7 @@ public class BattleShipWarrior implements Runnable {
 				code = shootNextPosition(opponentId, nextShot);
 			}
 			try {
-				Thread.sleep(1000l);
+				Thread.sleep(250l);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
@@ -62,8 +62,6 @@ public class BattleShipWarrior implements Runnable {
 
 			HttpResponse response = httpClient.execute(getRequest);
 
-			System.out.println(response.getStatusLine());
-
 			HttpEntity entity = response.getEntity();
 
 			String res = EntityUtils.toString(entity);
@@ -71,9 +69,6 @@ public class BattleShipWarrior implements Runnable {
 			JSONParser parser = new JSONParser();
 			JSONObject json = (JSONObject) parser.parse(res);
 			String status = (String) json.get("status");
-//			System.out.println("============Output:============");
-//			System.out.println(res);
-//			System.out.println(status);
 		} catch (ClientProtocolException e) {
 			e.printStackTrace();
 		} catch (IOException e1) {
@@ -95,8 +90,6 @@ public class BattleShipWarrior implements Runnable {
 
 			HttpResponse response = httpClient.execute(getRequest);
 
-			System.out.println(response.getStatusLine());
-
 			HttpEntity entity = response.getEntity();
 
 			code = response.getStatusLine().getStatusCode();
@@ -106,9 +99,6 @@ public class BattleShipWarrior implements Runnable {
 			JSONParser parser = new JSONParser();
 			JSONObject json = (JSONObject) parser.parse(res);
 			String status = (String) json.get("status");
-			System.out.println("============Output:============");
-//			System.out.println(res);
-//			System.out.println(status);
 			if (status.equals("success")){
 				strategy.getOpponentBattle()[shot.getX()][shot.getY()] = "hit".equals(res) ? 1 : -1;
 			} 
@@ -137,8 +127,6 @@ public class BattleShipWarrior implements Runnable {
 
 			HttpResponse response = httpClient.execute(getRequest);
 
-			System.out.println(response.getStatusLine());
-
 			HttpEntity entity = response.getEntity();
 
 			// Check for HTTP response code: 200 = success
@@ -152,13 +140,8 @@ public class BattleShipWarrior implements Runnable {
 			JSONParser parser = new JSONParser();
 			JSONObject json = (JSONObject) parser.parse(res);
 			JSONObject player = (JSONObject) json.get("player");
-//			System.out.println("============Output:============");
-//			System.out.println(res);
 			this.secret = (String) player.get("secret");
 			this.uid = (String) player.get("uid");
-//			System.out.println("secret:"  + secret + 
-//					" uid:" + uid  + "|" + res);
-			
 
 		} catch (ClientProtocolException e) {
 			e.printStackTrace();
