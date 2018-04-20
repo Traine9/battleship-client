@@ -1,7 +1,30 @@
 package ua.cn.stu.battleship;
 
+/**
+ * поле бою - 10 х 10
+ * В розпорядженні гравця наступні доступні кораблі
+ * 1 шт - 4 клітинки
+ * 2 шт - 3 клитінки
+ * 3 шт - 2 клітинки
+ * 4 шт - 1 клітинки
+ * 
+ * Кораблі не можуть дотинатися один до одного і має бути принаймні 1 клітинка між кораблями.
+ * 
+ * opponentBattle - поле бою супротивника.
+ * Заповнюється при грі:
+ * Можливы значення - 
+ * 0 - по клітинці не було пострілу
+ * -1 - постріл по клітинці відбувався, корабель супротивника не був уражений
+ * 1 - влучний постріл. корабель противника вражений не повністю
+ * 2 - влучний постріл. корабель супротивника загинув
+ *
+ */
 public class BattleShipStrategy {
 
+	public final static int SHOT_MISS = -1;
+	public final static int SHOT_HIT = 1;
+	public final static int SHOT_TOUCHDOWN = 2;
+	
 	private int[][] opponentBattle = new int[][]{
 		  { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 		  { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
@@ -15,7 +38,22 @@ public class BattleShipStrategy {
 		  { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
 		};
 	
-	
+	/**
+	 * Розташування своїх кораблів.
+	 * 1 - корабель
+	 * 0 - синє море :)
+	 */
+	private String myNavy = String.valueOf(
+			"1000100001" + 
+			"0000000000" + 
+			"1000000000" + 
+			"1000000110" +
+			"0000010000" + 
+			"0010010000" +
+			"0010010010" +
+			"0010010010" +
+			"0000000000" +
+			"0010000111");
 	
 	public Shot getNextShot(){
 		int x = (int) Math.round(Math.random() * 9);
@@ -37,18 +75,7 @@ public class BattleShipStrategy {
 	 * Ship can not have turns inside it.
 	 */
 	public String getShips() {
-		StringBuilder sb = new StringBuilder();
-		sb.append("1000100001");
-		sb.append("0000000000");
-		sb.append("1000000000");
-		sb.append("1000000110");
-		sb.append("0000010000");
-		sb.append("0010010000");
-		sb.append("0010010010");
-		sb.append("0010010010");
-		sb.append("0000000000");
-		sb.append("0010000111");
-		return sb.toString();
+		return myNavy;
 	}
 
 	public int[][] getOpponentBattle() {

@@ -68,7 +68,6 @@ public class BattleShipWarrior implements Runnable {
 			
 			JSONParser parser = new JSONParser();
 			JSONObject json = (JSONObject) parser.parse(res);
-			String status = (String) json.get("status");
 		} catch (ClientProtocolException e) {
 			e.printStackTrace();
 		} catch (IOException e1) {
@@ -94,14 +93,17 @@ public class BattleShipWarrior implements Runnable {
 
 			code = response.getStatusLine().getStatusCode();
 			// Check for HTTP response code: 200 = success
-			String res = EntityUtils.toString(entity);
+			String jsonResponse = EntityUtils.toString(entity);
 			
 			JSONParser parser = new JSONParser();
-			JSONObject json = (JSONObject) parser.parse(res);
+			JSONObject json = (JSONObject) parser.parse(jsonResponse);
 			String status = (String) json.get("status");
+			String result = (String) json.get("result");
 			if (status.equals("success")){
-				strategy.getOpponentBattle()[shot.getX()][shot.getY()] = "hit".equals(res) ? 1 : -1;
+				strategy.getOpponentBattle()[shot.getX()][shot.getY()] = ("miss".equals(result)) ? BattleShipStrategy.SHOT_MISS : 
+					("hit".equals(result) ? BattleShipStrategy.SHOT_HIT : BattleShipStrategy.SHOT_TOUCHDOWN);
 			} 
+			System.out.println("status:" + json);
 			if (code == 304){
 				System.out.println("!!!Battle is finished!!!!");
 			}
