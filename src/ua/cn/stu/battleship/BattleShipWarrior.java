@@ -102,7 +102,13 @@ public class BattleShipWarrior implements Runnable {
 			if (status.equals("success")){
 				strategy.getOpponentBattle()[shot.getX()][shot.getY()] = ("miss".equals(result)) ? BattleShipStrategy.SHOT_MISS : 
 					("hit".equals(result) ? BattleShipStrategy.SHOT_HIT : BattleShipStrategy.SHOT_TOUCHDOWN);
-			} 
+			} else 
+			{
+				JSONObject jsonStatus = (JSONObject)parser.parse(jsonResponse);
+		        JSONObject obj = (JSONObject) jsonStatus.get("error");
+		        Long codeLong = (long)obj.get("code");
+		        code = codeLong.intValue();
+			}
 			System.out.println("status:" + json);
 			if (code == 304){
 				System.out.println("!!!Battle is finished!!!!");

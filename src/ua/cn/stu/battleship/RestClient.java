@@ -4,10 +4,10 @@ import java.util.Scanner;
 
 public class RestClient {
 	
-	public static final String USER_NAME = "askosyr";
+	public static final String USER_NAME = "55434";
 
 	public static void main(String[] args) {
-		BattleShipWarrior thread = new BattleShipWarrior(USER_NAME, "localhost", "9999");
+		BattleShipWarrior thread = new BattleShipWarrior(USER_NAME, "192.168.1.10", "9999");
 		thread.setStrategy(new BattleShipStrategy());
 		Thread th = new Thread(thread);
 		th.start();
